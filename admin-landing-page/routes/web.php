@@ -82,3 +82,29 @@ Route::group(['prefix' => 'errors'], function() {
     Route::get('error500', [HomeController::class, 'error500'])->name('errors.error500');
     Route::get('maintenance', [HomeController::class, 'maintenance'])->name('errors.maintenance');
 });
+
+
+//Forms Pages Routs
+Route::group(['prefix' => 'forms'], function() {
+    Route::get('element', [HomeController::class, 'element'])->name('forms.element');
+    Route::get('wizard', [HomeController::class, 'wizard'])->name('forms.wizard');
+    Route::get('validation', [HomeController::class, 'validation'])->name('forms.validation');
+});
+
+
+//Table Page Routs
+Route::group(['prefix' => 'table'], function() {
+    Route::get('bootstraptable', [HomeController::class, 'bootstraptable'])->name('table.bootstraptable');
+    Route::get('datatable', [HomeController::class, 'datatable'])->name('table.datatable');
+});
+
+//Icons Page Routs
+Route::group(['prefix' => 'icons'], function() {
+    Route::get('solid', [HomeController::class, 'solid'])->name('icons.solid');
+    Route::get('outline', [HomeController::class, 'outline'])->name('icons.outline');
+    Route::get('dualtone', [HomeController::class, 'dualtone'])->name('icons.dualtone');
+    Route::get('colored', [HomeController::class, 'colored'])->name('icons.colored');
+});
+//Extra Page Routs
+Route::get('privacy-policy', [HomeController::class, 'privacypolicy'])->name('pages.privacy-policy');
+Route::get('terms-of-use', [HomeController::class, 'termsofuse'])->name('pages.term-of-use');
