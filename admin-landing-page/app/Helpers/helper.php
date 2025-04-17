@@ -98,3 +98,11 @@ function getFileExistsCheck($media)
     }
     return $mediaCondition;
 }
+
+// contoh di app/helpers.php
+if (!function_exists('activeRoute')) {
+    function activeRoute($routeName)
+    {
+        return request()->routeIs($routeName) ? 'active' : '';
+    }
+}

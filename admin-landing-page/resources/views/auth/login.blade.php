@@ -1,5 +1,5 @@
 <x-guest-layout>
-   <section class="login-content">
+   <section class="login-content" >
       <div class="row m-0 align-items-center bg-white vh-100">
          <div class="col-md-6">
             <div class="row justify-content-center">
@@ -50,26 +50,8 @@
                            <div class="d-flex justify-content-center">
                               <button type="submit" class="btn btn-primary">{{ __('Sign In') }}</button>
                            </div>
-                           <p class="text-center my-3">or sign in with other accounts?</p>
                            <div class="d-flex justify-content-center">
-                              <ul class="list-group list-group-horizontal list-group-flush">
-                                 <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="{{asset('images/brands/fb.svg')}}" alt="fb"></a>
-                                 </li>
-                                 <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="{{asset('images/brands/gm.svg')}}" alt="gm"></a>
-                                 </li>
-                                 <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="{{asset('images/brands/im.svg')}}" alt="im"></a>
-                                 </li>
-                                 <li class="list-group-item border-0 pb-0">
-                                    <a href="#"><img src="{{asset('images/brands/li.svg')}}" alt="li"></a>
-                                 </li>
-                              </ul>
                            </div>
-                           <p class="mt-3 text-center">
-                              Don’t have an account? <a href="{{route('auth.signup')}}" class="text-underline">Click here to sign up.</a>
-                           </p>
                         </form>
                      </div>
                   </div>
@@ -87,7 +69,7 @@
             </div>
          </div>
          <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-            <img src="{{asset('images/auth/01.png')}}" class="img-fluid gradient-main animated-scaleX" alt="images">
+            <img src="{{asset('images/auth/01.png')}}" class="img-fluid gradient-main animated-sclaeX" alt="images">
          </div>
       </div>
    </section>
