@@ -228,4 +228,6 @@ class HomeController extends Controller
     {
         return view('terms-of-use');
     }
+
+    
 }
