@@ -1,8 +1,12 @@
-<?php
-$pageTitle = "Home - Append Bootstrap Template";
-include 'include/header.php';
-?>
-
+@include('layout.header');
+@include('home');
+@include('about');
+@include('service');
+@include('portfolio');
+@include('pricing');
+@include('team');
+@include('blog');
+@include('contact');
 <!-- Hero Section -->
 <section id="hero" class="hero section dark-background">
   <!-- Konten hero section -->
@@ -31,4 +35,4 @@ include 'include/header.php';
 <!-- Main JS File -->
 <!-- Sections lainnya... -->
 
-<?php include 'include/footer.php'; ?>
+@include('layout.footer');
