@@ -8,9 +8,7 @@
 @include('blog');
 @include('contact');
 <!-- Hero Section -->
-<section id="hero" class="hero section dark-background">
-  <!-- Konten hero section -->
-</section>
+
 
 <!-- Clients Section -->
 <section id="clients" class="clients section">
