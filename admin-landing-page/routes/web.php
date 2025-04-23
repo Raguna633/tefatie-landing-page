@@ -32,12 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get(('blog'), [BlogController::class, 'blog'])-> name(('blog.blog'));
     Route::get('blog/tambah', [BlogController::class, 'rute'])->name('crud.tambah');
 
-    // Blog CRUD
+
+    // Blog crud    
     Route::get('/posts', [PostController::class, 'index']);
     Route::post('/posts', [PostController::class, 'store']);
-    Route::get('/posts/{id}', [PostController::class, 'show']);
+    Route::get('/posts/{id}', [PostController::class, 'edit']);
     Route::put('/posts/{id}', [PostController::class, 'update']);
-    Route::delete('/posts/{id}', [PostController::class, 'delete']);
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+    Route::get('/posts/all', [PostController::class, 'getAll']);
 
 
     // Dashboard Routes

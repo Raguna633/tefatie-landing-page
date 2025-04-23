@@ -17,9 +17,9 @@ class UserTableSeeder extends Seeder
     {
         $users = [
             [
-                'first_name' => 'System',
-                'last_name' => 'Admin',
-                'username' => 'systemadmin',
+                'first_name' => 'Rizqi',
+                'last_name' => 'Ramadhan',
+                'username' => 'Rizqi Ramadhan',
                 'email' => 'admin@example.com',
                 'password' => bcrypt('password'),
                 'phone_number' => '+12398190255',
