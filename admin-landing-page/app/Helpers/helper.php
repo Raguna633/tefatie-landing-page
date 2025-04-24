@@ -1,7 +1,13 @@
 <?php
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+
 function removeSession($session){
     if(\Session::has($session)){
-        \Session::forget($session);
+        session::forget($session);
     }
     return true;
 }

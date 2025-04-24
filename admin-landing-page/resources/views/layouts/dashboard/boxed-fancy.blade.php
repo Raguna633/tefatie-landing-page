@@ -11,5 +11,6 @@
 </head>
 <body class="boxed-fancy" >
 @include('partials.dashboard._body6')
+@stack('scripts')
 </body>
 </html>
