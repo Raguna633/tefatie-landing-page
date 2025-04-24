@@ -1,6 +1,6 @@
-
 @push('scripts')
 @endpush
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <x-app-layout :assets="$assets ?? []">
     <div>
@@ -25,22 +25,28 @@
                                         <div class="table-responsive">
                                             <div class="row m-2">
                                                 <div class="container mt-4">
-                                                    <form id="post-form" method="POST" enctype="multipart/form-data">
+                                                    <form id="post-form" method="POST"
+                                                        action="{{ route('posts.store') }}"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="mb-3">
                                                             <label for="title" class="form-label">Title</label>
-                                                            <input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
+                                                            <input type="text" class="form-control" name="title"
+                                                                id="title" placeholder="Title" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="content" class="form-label">Content</label>
                                                             <textarea class="form-control" name="content" id="content" rows="4" placeholder="Content" required></textarea>
                                                         </div>
-                                                        <img id="previewImage" src="" alt="Gambar Lama" style="max-width: 200px; display:none;">
+                                                        <img id="previewImage" src="" alt="Gambar Lama"
+                                                            style="max-width: 200px; display:none;">
                                                         <div class="mb-3">
                                                             <label for="image" class="form-label">Image</label>
-                                                            <input type="file" class="form-control" name="image" id="image" required>
+                                                            <input type="file" class="form-control" name="image"
+                                                                id="image" required>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary">Tambah Post</button>
+                                                        <button type="submit" class="btn btn-primary">Tambah
+                                                            Post</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -74,69 +80,76 @@
     </div>
 </x-app-layout>
 <script>
-   $(document).ready(function() {
-    let editingPostId = null;
+    $(document).ready(function() {
+        let editingPostId = null;
 
-    loadPosts();
+        loadPosts();
 
-    // Tambah / Update Post
-    $('#post-form').on('submit', function(e) {
-        e.preventDefault();
+        // Tambah / Update Post
+        $('#post-form').on('submit', function(e) {
+            e.preventDefault();
 
-        var formData = new FormData(this);
-        let url = '/posts';
-        let type = 'POST';
+            var formData = new FormData(this);
+            let url = '/posts';
+            let type = 'POST';
 
-        if (editingPostId) {
-            formData.append('_method', 'PUT');
-            url = `/posts/${editingPostId}`;
-            type = 'POST'; // Laravel butuh _method=PUT untuk update
+            if (editingPostId) {
+                formData.append('_method', 'PUT');
+                url = `/posts/${editingPostId}`;
+                type = 'POST'; // Laravel butuh _method=PUT untuk update
+            }
+
+            $.ajax({
+                url: url,
+                type: type,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        if (editingPostId) {
+                            updatePostRow(response.post);
+                            editingPostId = null;
+                            $('#post-form button[type="submit"]').text('Tambah Post');
+                        } else {
+                            appendPost(response.post);
+                            // Simpan flag bahwa data berhasil ditambahkan
+                            sessionStorage.setItem('postAdded', 'true');
+                        }
+                        $('#post-form')[0].reset();
+                    }
+                }
+
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+
+        // Load semua data
+        function loadPosts() {
+            $.ajax({
+                url: '/posts',
+                type: 'GET',
+                success: function(response) {
+                    $('#postTableBody').empty();
+                    response.forEach(function(post) {
+                        appendPost(post);
+                    });
+
+
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal memuat artikel.');
+                    console.error(error);
+                }
+            });
         }
 
-        $.ajax({
-            url: url,
-            type: type,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.success) {
-                    if (editingPostId) {
-                        updatePostRow(response.post);
-                        editingPostId = null;
-                        $('#post-form button[type="submit"]').text('Tambah Post');
-                    } else {
-                        appendPost(response.post);
-                    }
-                    $('#post-form')[0].reset();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    });
-
-    // Load semua data
-    function loadPosts() {
-        $.ajax({
-            url: '/posts',
-            type: 'GET',
-            success: function(response) {
-                $('#postTableBody').empty();
-                response.forEach(function(post) {
-                    appendPost(post);
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-    // Tambahkan ke tabel
-    function appendPost(post) {
-      var postRow = `
+        // Tambahkan ke tabel
+        function appendPost(post) {
+            var postRow = `
     <tr id="post-${post.id}">
         <td><img src="/storage/${post.image}" alt="Gambar Artikel" class="img-fluid" style="max-width: 100px;"></td>
         <td>${post.title}</td>
@@ -167,8 +180,21 @@
         </td>
     </tr>
 `;
-        $('#postTableBody').prepend(postRow);
-    }
+            $('#postTableBody').prepend(postRow);
+
+
+        }
+
+
+
+        // Tampilkan alert jika ada flag postAdded
+if (sessionStorage.getItem('postAdded') === 'true') {
+    alert('Data berhasil ditambahkan');
+    sessionStorage.removeItem('postAdded'); // hapus agar tidak muncul lagi saat reload berikutnya
+}
+
+    });
+
 
     // Update baris yang sudah ada
     function updatePostRow(post) {
@@ -207,26 +233,26 @@
     }
 
     // Tombol Edit
-$(document).on('click', '.edit-post', function(e) {
-    e.preventDefault();
-    const id = $(this).data('id');
-    const title = $(this).data('title');
-    const content = $(this).data('content');
-    const image = $(this).data('image'); // Ambil data gambar lama jika ada
+    $(document).on('click', '.edit-post', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        const title = $(this).data('title');
+        const content = $(this).data('content');
+        const image = $(this).data('image'); // Ambil data gambar lama jika ada
 
-    $('#title').val(title);
-    $('#content').val(content);
+        $('#title').val(title);
+        $('#content').val(content);
 
-    // Menampilkan gambar lama jika ada
-    if (image) {
-        $('#previewImage').attr('src', '/storage/' + image).show();
-    } else {
-        $('#previewImage').hide();
-    }
+        // Menampilkan gambar lama jika ada
+        if (image) {
+            $('#previewImage').attr('src', '/storage/' + image).show();
+        } else {
+            $('#previewImage').hide();
+        }
 
-    editingPostId = id;
-    $('#post-form button[type="submit"]').text('Update Post');
-});
+        editingPostId = id;
+        $('#post-form button[type="submit"]').text('Update Post');
+    });
 
 
     // Tombol Delete
@@ -253,6 +279,4 @@ $(document).on('click', '.edit-post', function(e) {
             });
         }
     });
-});
-
 </script>

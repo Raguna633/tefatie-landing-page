@@ -35,11 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Blog crud    
     Route::get('/posts', [PostController::class, 'index']);
-    Route::post('/posts', [PostController::class, 'store']);
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/{id}', [PostController::class, 'edit']);
     Route::put('/posts/{id}', [PostController::class, 'update']);
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-    Route::get('/posts/all', [PostController::class, 'getAll']);
 
 
     // Dashboard Routes
