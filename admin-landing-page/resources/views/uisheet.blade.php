@@ -1,5 +1,5 @@
 <x-app-layout layout="simple" :assets="$assets ?? []">
-<span class="uisheet screen-darken"></span>
+<span class=" screen-darken"></span>
     <div class="header" style="background: url({{asset('images/dashboard/top-image.jpg')}}); background-size: cover; background-repeat: no-repeat; height: 100vh;position: relative;">
         <div class="main-img">
             <div class="container">

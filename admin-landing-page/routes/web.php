@@ -3,8 +3,16 @@
 // Controllers
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\Security\RolePermission;
+// Packages
+use App\Http\Controllers\MitraController;
+use App\Http\Controllers\FeatureController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TeamMemberController;
+use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\AboutSectionController;
+use App\Http\Controllers\StatsSectionController;
 use App\Http\Controllers\Security\RoleController;
+use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
@@ -12,12 +20,15 @@ use Illuminate\Support\Facades\Artisan;
 
 // Packages
 use Illuminate\Support\Facades\Route;
+use App\Models\Mitra;
+use App\Models\Stats;
 
 require __DIR__.'/auth.php';
 
 Route::get('/storage', function () {
     Artisan::call('storage:link');
 });
+
 
 //UI Pages Routs
 Route::get('/', [HomeController::class, 'uisheet'])->name('uisheet');
@@ -43,6 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Dashboard Routes
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    
+    Route::get('/home', [HomeController::class, 'home'])->name('home');
 
     // Users Module
     Route::resource('users', UserController::class);
@@ -121,6 +134,67 @@ Route::group(['prefix' => 'icons'], function() {
     Route::get('dualtone', [HomeController::class, 'dualtone'])->name('icons.dualtone');
     Route::get('colored', [HomeController::class, 'colored'])->name('icons.colored');
 });
+
 //Extra Page Routs
 Route::get('privacy-policy', [HomeController::class, 'privacypolicy'])->name('pages.privacy-policy');
 Route::get('terms-of-use', [HomeController::class, 'termsofuse'])->name('pages.term-of-use');
+
+Route::prefix('admin/section')->name('admin.section.')->group(function () {
+    Route::get('/hero/edit', [HeroSectionController::class, 'edit'])->name('hero.edit');
+    Route::put('/hero/update', [HeroSectionController::class, 'update'])->name('hero.update');
+    Route::resource('hero', HeroSectionController::class);
+    
+    Route::get('/mitra/edit', [MitraController::class, 'edit'])->name('mitra.edit');
+    Route::put('/mitra/update', [MitraController::class, 'update'])->name('mitra.update');
+    Route::resource('mitra', MitraController::class);
+    
+    Route::get('/about/edit', [AboutSectionController::class, 'edit'])->name('about.edit');
+    Route::put('/about/update', [AboutSectionController::class, 'update'])->name('about.update');
+    Route::resource('about', AboutSectionController::class);
+   
+    Route::get('/stats/edit', [StatsSectionController::class, 'edit'])->name('stats.edit');
+    Route::put('/stats/update', [StatsSectionController::class, 'update'])->name('stats.update');
+    Route::resource('stats', StatsSectionController::class);
+    
+    Route::get('/services/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/update', [ServiceController::class, 'update'])->name('services.update');
+    Route::resource('services', ServiceController::class);
+    
+    Route::get('/features/edit', [FeatureController::class, 'edit'])->name('features.edit');
+    Route::put('/features/update', [FeatureController::class, 'update'])->name('features.update');
+    Route::resource('features', FeatureController::class);
+
+    Route::get('/team/edit', [TeamMemberController::class, 'edit'])->name('team.edit');
+    Route::put('/team/update', [TeamMemberController::class, 'update'])->name('team.update');
+    Route::resource('team', TeamMemberController::class);
+});
+
+Route::prefix('admin/api')->group(function () {
+    // Hero section
+    Route::apiResource('hero', HeroSectionController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // Clients/Mitra
+    Route::apiResource('mitra', MitraController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // About Us
+    Route::apiResource('about', AboutSectionController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // Stats (Clients, Projects, Hours, Workers)
+    Route::apiResource('stats', StatsSectionController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // Services
+    Route::apiResource('services', ServiceController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // Features
+    Route::apiResource('features', FeatureController::class)
+         ->only(['index','store','edit','update','destroy']);
+
+    // Team Members
+    Route::apiResource('team', TeamMemberController::class)
+         ->only(['index','store','edit','update','destroy']);
+});
