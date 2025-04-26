@@ -1,35 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
-// Halaman Utama
-Route::get('/', function () {
-    return view('index');
-})->name('home');
-
-// Halaman Blog
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
-
-// Detail Blog Post
-Route::get('/blog/{slug}', function ($slug) {
-    return view('blog-details', ['slug' => $slug]);
-})->name('blog.details');
-
-// Detail Portfolio
-Route::get('/portfolio/{id}', function ($id) {
-    return view('portfolio-details', ['id' => $id]);
-})->name('portfolio.details');
-
-// Form Contact
-Route::post('/contact', function () {
-    // Proses form contact disini
-    return redirect()->back()->with('success', 'Terima kasih pesan Anda sudah kami terima!');
-})->name('contact.submit');
-
-// Newsletter Subscription
-Route::post('/subscribe', function () {
-    // Proses newsletter disini
-    return response()->json(['success' => true]);
-})->name('newsletter.submit');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/services-details', [PageController::class, 'serviceDetails'])->name('services.details');
+Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+Route::get('/portfolio-details', [PageController::class, 'portfolioDetails'])->name('portfolio.details');
+Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
+Route::get('/team', [PageController::class, 'team'])->name('team');
+Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/blog-details', [PageController::class, 'blogDetails'])->name('blog.details');
