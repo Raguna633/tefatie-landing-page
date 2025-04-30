@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class AboutSection extends Model
 {
-    protected $fillable = ['title','subtitle','description'];
+    use HasFactory;
+    protected $fillable = ['title','icon','description'];
 }

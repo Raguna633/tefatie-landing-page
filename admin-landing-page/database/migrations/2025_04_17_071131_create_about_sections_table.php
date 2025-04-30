@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('about_sections', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('subtitle');
+            $table->string('icon');
             $table->text('description');
             $table->timestamps();
         });

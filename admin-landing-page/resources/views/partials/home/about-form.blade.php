@@ -9,8 +9,8 @@
 </div>
 
 <div class="mb-3">
-  <label for="subtitle" class="form-label">Subtitle</label>
-  <input type="text" name="subtitle" id="subtitle" class="form-control" value="{{ old('subtitle', $item->subtitle ?? '') }}">
+  <label for="subtitle" class="form-label">Icon (Bootstrap icon class)</label>
+  <input type="text" name="icon" id="icon" class="form-control" value="{{ old('icon', $item->icon ?? '') }}">
 </div>
 
 <div class="mb-3">

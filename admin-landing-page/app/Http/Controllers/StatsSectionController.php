@@ -12,6 +12,13 @@ class StatsSectionController extends Controller
         return response()->json(['data' => Stats::orderBy('id')->get()]);
     }
 
+    public function create()
+    {
+        // form Add: kirim $item = null
+        return view('partials.home.stats-form', ['item' => null])->render();
+    }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -20,7 +27,10 @@ class StatsSectionController extends Controller
         ]);
 
         $item = Stats::create($validated);
-        return response()->json($item, 201);
+        return response()->json([
+            'item'    => $item,
+            'message' => 'Stats created.'
+        ], 201);
     }
 
     public function edit($id)
@@ -38,12 +48,15 @@ class StatsSectionController extends Controller
         ]);
 
         $item->update($validated);
-        return response()->json($item);
+        return response()->json([
+            'item' => $item,
+            'message' => 'Stats updated'
+        ]);
     }
 
     public function destroy($id)
     {
         Stats::destroy($id);
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Deleted'], 204);
     }
 }

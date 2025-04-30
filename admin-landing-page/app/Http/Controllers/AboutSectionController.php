@@ -12,16 +12,25 @@ class AboutSectionController extends Controller
         return response()->json(['data' => AboutSection::orderBy('id')->get()]);
     }
 
+    public function create()
+    {
+        // form Add: kirim $item = null
+        return view('partials.home.about-form', ['item' => null])->render();
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
-            'subtitle'    => 'nullable|string|max:255',
+            'icon'    => 'nullable|string|max:255',
             'description' => 'required|string',
         ]);
 
         $item = AboutSection::create($validated);
-        return response()->json($item, 201);
+        return response()->json([
+            'item'    => $item,
+            'message' => 'About created.'
+        ], 201);
     }
 
     public function edit($id)
@@ -35,17 +44,20 @@ class AboutSectionController extends Controller
         $item = AboutSection::findOrFail($id);
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
-            'subtitle'    => 'nullable|string|max:255',
+            'icon'    => 'nullable|string|max:255',
             'description' => 'required|string',
         ]);
 
         $item->update($validated);
-        return response()->json($item);
+        return response()->json([
+            'item' => $item,
+            'message' => 'About updated'
+        ]);
     }
 
     public function destroy($id)
     {
         AboutSection::destroy($id);
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Deleted'], 204);
     }
 }

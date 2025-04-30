@@ -12,6 +12,12 @@ class TeamMemberController extends Controller
         return response()->json(['data' => TeamMember::orderBy('id')->get()]);
     }
 
+    public function create()
+    {
+        // form Add: kirim $item = null
+        return view('partials.home.team-form', ['item' => null])->render();
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -24,7 +30,10 @@ class TeamMemberController extends Controller
             $validated['photo'] = $path;
         }
         $item = TeamMember::create($validated);
-        return response()->json($item, 201);
+        return response()->json([
+            'item'    => $item,
+            'message' => 'Member Added.'
+        ], 201);
     }
 
     public function edit($id)
@@ -46,12 +55,15 @@ class TeamMemberController extends Controller
             $validated['photo'] = $path;
         }
         $item->update($validated);
-        return response()->json($item);
+        return response()->json([
+            'item' => $item,
+            'message' => 'Member updated'
+        ]);
     }
 
     public function destroy($id)
     {
         TeamMember::destroy($id);
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Deleted'], 204);
     }
 }

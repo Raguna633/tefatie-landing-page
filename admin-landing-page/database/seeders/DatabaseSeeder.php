@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
             UserTableSeeder::class,
+            AboutSectionSeeder::class,
+            FeatureSeeder::class,
+            HeroSectionSeeder::class,
+            MitraSeeder::class,
+            ServiceSectionSeeder::class,
+            StatsSectionSeeder::class,
+            TeamMemberTableSeeder::class,
         ]);
         \App\Models\User::factory(40)->create()->each(function($user) {
             $user->assignRole('user');
