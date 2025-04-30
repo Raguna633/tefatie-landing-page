@@ -26,13 +26,13 @@
 </head>
 
 <body class="home-page">
-    @include('partials.header')
+    @include('layouts.header')
 
     <main class="main">
         @yield('content')
     </main>
 
-    @include('partials.footer')
+    @include('layouts.footer')
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

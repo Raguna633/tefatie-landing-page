@@ -27,7 +27,6 @@ class HomeController extends Controller
                 // Tambahkan feature lainnya sesuai kebutuhan
             ]
         ];
-
         // Data untuk section services
         $services = [
             'title' => 'Services',
@@ -89,6 +88,13 @@ class HomeController extends Controller
             ]
         ];
 
-        return view('home', compact('about', 'services', 'portfolio', 'team', 'blog'));
+        return view('home', [
+            'about' => $about,
+            'services' => $services,
+            'portfolio' => $portfolio,
+            'team' => $team,
+            'blog' => $blog,
+        ]);
+
     }
 }
