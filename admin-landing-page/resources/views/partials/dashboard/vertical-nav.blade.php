@@ -99,7 +99,7 @@
         </a>
     </li>
     <li><hr class="hr-horizontal"></li>
-    <li class="nav-item static-item">
+    {{-- <li class="nav-item static-item">
         <a class="nav-link static-item disabled" href="#" tabindex="-1">
             <span class="default-icon">Elements</span>
             <span class="mini-icon">-</span>
@@ -374,5 +374,5 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>

@@ -1,5 +1,5 @@
 <x-app-layout :assets="$assets ?? []">
-    <div class="container py-4">
+    <div class="container py-4 mt-5">
         <h1 class="mb-4">Manage Home Page Sections</h1>
 
         <!-- Nav Tabs -->
@@ -43,7 +43,7 @@
                                     @case('about')
                                         <th>ID</th>
                                         <th>Title</th>
-                                        <th>Subtitle</th>
+                                        <th>Icon</th>
                                         <th>Description</th>
                                     @break
 
@@ -141,7 +141,7 @@
                                     row += `
                                             <td>${item.id}</td>
                                             <td>${item.title}</td>
-                                            <td>${item.subtitle}</td>
+                                            <td><i class="bi ${item.icon}"></i></td>
                                             <td>${item.description.substring(0,50)}…</td>`;
                                     break;
 

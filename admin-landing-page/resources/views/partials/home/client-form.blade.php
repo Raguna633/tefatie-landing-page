@@ -1,5 +1,5 @@
 @csrf
-@if(isset($item))
+@if(isset($item) && $item)
   @method('PUT')
 @endif
 

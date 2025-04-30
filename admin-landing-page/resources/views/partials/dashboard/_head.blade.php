@@ -16,6 +16,8 @@
 <link rel='stylesheet' href="{{ asset('vendor/fullcalendar/list/main.css') }}" />
 <link rel="stylesheet" href="{{ asset('vendor/Leaflet/leaflet.css') }}" />
 <link rel="stylesheet" href="{{ asset('vendor/vanillajs-datepicker/dist/css/datepicker.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.json') }}" />
 
 <link rel="stylesheet" href="{{ asset('vendor/aos/dist/aos.css') }}" />
 

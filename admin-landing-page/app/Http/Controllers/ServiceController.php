@@ -12,6 +12,12 @@ class ServiceController extends Controller
         return response()->json(['data' => Service::orderBy('id')->get()]);
     }
 
+    public function create()
+    {
+        // form Add: kirim $item = null
+        return view('partials.home.service-form', ['item' => null])->render();
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -21,7 +27,10 @@ class ServiceController extends Controller
         ]);
 
         $item = Service::create($validated);
-        return response()->json($item, 201);
+        return response()->json([
+            'item'    => $item,
+            'message' => 'Service created.'
+        ], 201);
     }
 
     public function edit($id)
@@ -40,12 +49,15 @@ class ServiceController extends Controller
         ]);
 
         $item->update($validated);
-        return response()->json($item);
+        return response()->json([
+            'item' => $item,
+            'message' => 'Service updated'
+        ]);
     }
 
     public function destroy($id)
     {
         Service::destroy($id);
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Deleted'], 204);
     }
 }
